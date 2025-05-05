@@ -19,6 +19,10 @@ class QuantityUnitBase(BaseModel):
 class VoucherBaleCreate(BaseModel):
     bale_number: str
 
+class BaleInput(BaseModel):
+    bale_number: str
+    quantity: float
+
 class VoucherCreate(BaseModel):
     voucher_number: str
     bill_date: date
@@ -37,7 +41,8 @@ class VoucherCreate(BaseModel):
     extra_charges: float
     total_amount: float
     round_off: float
-    bale_numbers: str  # comma-separated bale string e.g. "22,33,44"
+    bales: List[BaleInput]  # ✅ updated to accept bale_number + quantity
+
 
 class BaleAcceptRequest(BaseModel):
     voucher_number: str
@@ -47,6 +52,7 @@ class BaleQuantityUpdate(BaseModel):
     voucher_number: str
     bale_number: str
     quantity: float
+    remarks: str  # e.g. "Excess Quantity", "Less Quantity", "Normal"
 
 class QuantityUpdateRequest(BaseModel):
     bale_numbers: List[str]  # list of bale numbers
